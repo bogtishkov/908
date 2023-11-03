@@ -74,15 +74,15 @@
 
     <div class="container-0" id="2">
       <div class="global-rating">
-        <p class="num">59 605</p>
+        <p class="num" id="counter1">0</p>
         <p>Кримінальних проваджень про шахрайство за неповний рік</p>
       </div>
       <div class="country-rating">
-        <p class="num">1 414</p>
+        <p class="num" id="counter2">0</p>
         <p>Шлюбів розсотргунто онлайн</p>
       </div>
       <div class="fops">
-        <p class="num">35 587</p>
+        <p class="num" id="counter3">0</p>
         <p>Нових фопів відкрили в Україні</p>
       </div>
     </div>
@@ -128,3 +128,37 @@
 </body>
 
 </html>
+
+<script>
+
+  const targetNumbers = [59605, 29601, 35587];
+    let currentNumbers = [0, 0, 0];
+    const counterElements = document.querySelectorAll(".num");
+
+    function updateCounters() {
+      for (let i = 0; i < counterElements.length; i++) {
+        counterElements[i].textContent = Math.floor(currentNumbers[i]);
+      }
+    }
+
+    function displayNumbers() {
+      const speed = 180; // Измените значение, чтобы увеличить или уменьшить скорость анимации
+
+      for (let i = 0; i < targetNumbers.length; i++) {
+        const increment = targetNumbers[i] / speed;
+
+        if (currentNumbers[i] < targetNumbers[i]) {
+          currentNumbers[i] += increment;
+        }
+      }
+
+      updateCounters();
+
+      if (currentNumbers.some((value, index) => value < targetNumbers[index])) {
+        requestAnimationFrame(displayNumbers);
+      }
+    }
+
+    displayNumbers();
+    
+</script>
